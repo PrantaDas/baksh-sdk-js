@@ -1,0 +1,15 @@
+{
+  "name": "bkash-api-coredevs",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node tests/index.js",
+    "start-dev": "node src/server/index.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "express": "^4.18.1"
+  }
+}
