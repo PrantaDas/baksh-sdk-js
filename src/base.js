@@ -112,8 +112,8 @@ class BaseClass {
       let data = {
         "mode": "0000",
         "callbackURL": "https://tokenized.sandbox.bka.sh/v1.2.0-beta/tokenized/checkout",
-        "payerReference": "0173499999",
-        "amount": '50'
+        "payerReference": "01770618575",
+        "amount": '500'
       };
 
       const res = await fetch({
@@ -263,10 +263,10 @@ class BaseClass {
       let data = {
         'agreementID': this.agreementID,
         "mode": "0001",
-        "payerReference": "01723888888",
+        "payerReference": "01770618575",
         "callbackURL": "http://localhost:5000/bkash",
         "merchantAssociationInfo": "MI05MID54RF09123456One",
-        "amount": "12",
+        "amount": "7",
         "currency": "BDT",
         "intent": "sale",
         "merchantInvoiceNumber": "Inv0124"
@@ -314,9 +314,9 @@ class BaseClass {
         url, headers, data
       });
 
-      if(res?.statusCode==='0000'){
-        this.agreementID=res?.agreementID;
-        this.trxID=res?.trxID;
+      if (res?.statusCode === '0000') {
+        this.agreementID = res?.agreementID;
+        this.trxID = res?.trxID;
       };
 
       return res;
@@ -327,6 +327,72 @@ class BaseClass {
       throw new Error(error.message);
       console.log(error.message);
     };
+  };
+
+  /**
+   * Query payment
+   */
+
+  async queryPayment() {
+    try {
+      let url = this.baseUrl + '/payment/status';
+
+      let headers = {
+        'authorization': this.token,
+        'x-app-key': this.appKey
+      };
+
+      let data = {
+        paymentId: this.paymentID,
+      };
+
+
+
+      let res = await fetch({
+        method: 'POST',
+        url, headers, data
+      });
+
+      if (res?.statusCode === '0000') {
+        this.trxID = res?.trxID;
+      };
+      return res;
+    }
+
+    catch (error) {
+      throw new Error(error.message);
+      console.log(error.message);
+    }
+  };
+
+
+  /**
+   * Search transaction
+   */
+
+  async searchTransaction() {
+    try {
+      let url = this.baseUrl + '/general/searchTransaction';
+
+      let headers = {
+        'authorization': this.token,
+        'x-app-key': this.appKey
+      };
+
+      let data = {
+        'trxID': this.trxID,
+      };
+
+      let res = await fetch({
+        method: 'POST',
+        url, headers, data
+      });
+    }
+    catch (error) {
+      throw new error(error.message);
+      console.log(error.message);
+    }
+
   };
 
 }
