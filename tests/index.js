@@ -57,6 +57,11 @@ let appSecret = "2is7hdktrekvrbljjh44ll3d9l1dtjo4pasmjvs5vl5qr3fug4b";
   // const cancel = await obj.cancelAgreement();
   // console.log(cancel); 
 
+  setTimeout(async () => {
+    const cancel = await obj.cancelAgreement();
+    console.log(cancel);
+  },80000);
+
   /**
    * Create Payment
    */
