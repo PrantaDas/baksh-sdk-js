@@ -79,20 +79,35 @@ let appSecret = "2is7hdktrekvrbljjh44ll3d9l1dtjo4pasmjvs5vl5qr3fug4b";
    * Query payment
    */
 
-  setTimeout(async () => {
-    const queryPayment = await obj.queryPayment();
-    console.log(queryPayment);
-  },160000);
+  // setTimeout(async () => {
+  //   const queryPayment = await obj.queryPayment();
+  //   console.log(queryPayment);
+  // },160000);
 
 
   /**
    * Search transaction
    */
 
-  setTimeout(async () => {
-    const searachTransaction = await obj.searchTransaction();
-    console.log(searachTransaction);
-  },180000);
+  // setTimeout(async () => {
+  //   const searachTransaction = await obj.searchTransaction();
+  //   console.log(searachTransaction);
+  // },180000);
+
+  /**
+   * refund transaction
+   */
+
+  // const refund=await obj.refundTransaction();
+  // console.log(refund);
+
+
+  /**
+   * Refund status
+   */
+
+  // const refundStatus = await obj.refundStatus();
+  // console.log(refundStatus);
 
 
 })(); 

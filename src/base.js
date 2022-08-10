@@ -222,7 +222,7 @@ class BaseClass {
       let url = this.baseUrl + '/agreement/cancel';
 
       let data = {
-        'agreementID': 'TokenizedMerchant02V0SKRZX1660022171265'
+        'agreementID': this.agreementID
       };
 
       let headers = {
@@ -266,7 +266,7 @@ class BaseClass {
         "payerReference": "01770618575",
         "callbackURL": "http://localhost:5000/bkash",
         "merchantAssociationInfo": "MI05MID54RF09123456One",
-        "amount": "7",
+        "amount": "10",
         "currency": "BDT",
         "intent": "sale",
         "merchantInvoiceNumber": "Inv0124"
@@ -387,6 +387,13 @@ class BaseClass {
         method: 'POST',
         url, headers, data
       });
+
+      if (res?.statusCode === '0000') {
+        this.trxID = res?.trxID;
+        this.paymentID = res?.paymentID;
+        this.amount = res?.amount
+      }
+      return res;
     }
     catch (error) {
       throw new error(error.message);
@@ -394,6 +401,80 @@ class BaseClass {
     }
 
   };
+
+  /**
+   * refund transaction
+   */
+
+
+  async refundTransaction() {
+    try {
+      let url = this.baseUrl + '/payment/refund';
+      let headers = {
+        'authorization': this.token,
+        'x-app-key': this.appKey
+      };
+      let data = {
+        trxID: this.trxID,
+        paymentID: this.paymentID,
+        amount: this.amount,
+        sku: 'ABC',
+        reason: 'ABC'
+      };
+
+      let res = await fetch({
+        method: 'POST',
+        url, headers, data
+      });
+
+      if (res?.status === '000') {
+        this.paymentID = res?.paymentID,
+          this.trxID = res?.trxID
+      }
+      return res;
+    }
+    catch (error) {
+      throw new Error(error.message);
+      console.log(error.message);
+    }
+  };
+
+  /**
+   * refund status
+   */
+
+  async refundStatus() {
+    try {
+      let url = this.baseUrl + '/payment/refund';
+
+      let headers = {
+        'authorization': this.token,
+        'x-app-key': this.appKey
+      };
+
+      let data = {
+        paymentID: this.paymentID,
+        trxID: this.trxID,
+      };
+
+      let res = await fetch({
+        method: 'POST',
+        url, headers, data
+      });
+
+      if (res?.statusCode === '0000') {
+        this.refundTrxID = res?.refundTrxID;
+      }
+
+      return res;
+
+    }
+    catch (error) {
+      throw new Error(error.message);
+      console.log(error.message);
+    }
+  };
+
 
 }
 
